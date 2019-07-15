@@ -49,4 +49,14 @@ describe 'PostAPI' do
     # データが更新されていることを確認
     expect(json['data']['title']).to eq('new-title')
   end
+
+  it 'ポストを削除する' do
+    post = create(:post)
+
+    # データが削除されていることを確認
+    expect { delete "/api/v1/posts/#{post.id}" }.to change(Post, :count).by(-1)
+
+    # リクエスト成功を表す200が返ってきたか確認する。
+    expect(response.status).to eq(200)
+  end
 end
