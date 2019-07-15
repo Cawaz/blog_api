@@ -3,7 +3,7 @@ module Api
     class PostsController < ApplicationController
       before_action :set_post, only: %i[show update destroy]
       def index
-        posts = Post.order(:created_at: :desc)
+        posts = Post.order(created_at: :desc)
         render json: { status: 'SUCCESS', message: 'loaded psots', data: posts }
       end
 
@@ -27,7 +27,7 @@ module Api
 
       def update
         if post.update(post_params)
-          render json: { status: 'SUCCESS', message: 'updated the post' data: post }
+          render json: { status: 'SUCCESS', message: 'updated the post', data: post }
         else
           render json: { status: 'SUCCESS', message: 'loaded the post', data: post }
         end
