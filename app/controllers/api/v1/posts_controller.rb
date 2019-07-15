@@ -1,13 +1,14 @@
 module Api
   module V1
     class PostsController < ApplicationController
-      before_action :set_post, only: %i[show update destroy]
+
       def index
         posts = Post.order(created_at: :desc)
         render json: { status: 'SUCCESS', message: 'loaded posts', data: posts }
       end
 
       def show
+        post = Post.find(params[:id])
         render json: { status: 'SUCCESS', message: 'loaded the post', data: post }
       end
 
@@ -21,11 +22,13 @@ module Api
       end
 
       def destroy
+        post = Post.find(params[:id])
         post.destroy
         render json: { status: 'SUCCESS', message: 'deleted the post', data: post }
       end
 
       def update
+        post = Post.find(params[:id])
         if post.update(post_params)
           render json: { status: 'SUCCESS', message: 'updated the post', data: post }
         else
