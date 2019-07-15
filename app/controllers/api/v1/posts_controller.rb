@@ -38,8 +38,8 @@ module Api
 
       private
 
-      def post_parmas
-        parmas.require(:post).permit(:title)
+      def post_params
+        params.require(:post).permit(:title)
       end
     end
   end
