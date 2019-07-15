@@ -36,4 +36,17 @@ describe 'PostAPI' do
     # リクエスト成功を表す200が返ってきたか確認する。
     expect(response.status).to eq(200)
   end
+
+  it 'ポストの編集を行う' do
+    post = create(:post, title: 'old-title')
+
+    put "/api/v1/posts/#{post.id}", params: { post: {title: 'new-title'} }
+    json = JSON.parse(response.body)
+
+    # リクエスト成功を表す200が返ってきたか確認する。
+    expect(response.status).to eq(200)
+
+    # データが更新されていることを確認
+    expect(json['data']['title']).to eq('new-title')
+  end
 end
